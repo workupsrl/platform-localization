@@ -12,12 +12,12 @@ use Stevebauman\Localization\Repositories\Translation\TranslationRepositoryInter
  */
 class TranslationController extends AdminController
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $csrfWhitelist = [
-		'executeAction',
-	];
+    /**
+     * {@inheritDoc}
+     */
+    protected $csrfWhitelist = [
+        'executeAction',
+    ];
 
     /**
      * The Locale repository instance
@@ -26,220 +26,212 @@ class TranslationController extends AdminController
      */
     protected $locales;
 
-	/**
-	 * The Translation repository instance
-	 *
-	 * @var \Stevebauman\Localization\Repositories\Translation\TranslationRepositoryInterface
-	 */
-	protected $translations;
+    /**
+     * The Translation repository instance
+     *
+     * @var \Stevebauman\Localization\Repositories\Translation\TranslationRepositoryInterface
+     */
+    protected $translations;
 
-	/**
-	 * Holds all the mass actions we can execute.
-	 *
-	 * @var array
-	 */
-	protected $actions = [
-		'delete',
-		'enable',
-		'disable',
-	];
+    /**
+     * Holds all the mass actions we can execute.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'delete',
+        'enable',
+        'disable',
+    ];
 
     /**
      * @param LocaleRepositoryInterface $locales
      * @param TranslationRepositoryInterface $translations
      */
-	public function __construct(LocaleRepositoryInterface $locales, TranslationRepositoryInterface $translations)
-	{
-		parent::__construct();
+    public function __construct(LocaleRepositoryInterface $locales, TranslationRepositoryInterface $translations)
+    {
+        parent::__construct();
 
         $this->locales = $locales;
-		$this->translations = $translations;
-	}
+        $this->translations = $translations;
+    }
 
-	/**
-	 * Display a listing of translation.
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function index($localeId)
-	{
+    /**
+     * Display a listing of translation.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index($localeId)
+    {
         $locale = $this->locales->find($localeId);
 
-        if( ! $locale) return redirect(route('admin.localization.locales.index'));
+        if (!$locale) return redirect(route('admin.localization.locales.index'));
 
-		return view('stevebauman/localization::translations.index', compact('locale'));
-	}
+        return view('stevebauman/localization::translations.index', compact('locale'));
+    }
 
-	/**
-	 * Datasource for the translation Data Grid.
-	 *
-	 * @return \Cartalyst\DataGrid\DataGrid
-	 */
-	public function grid($localeId)
-	{
-		$data = $this->translations->grid($localeId);
+    /**
+     * Datasource for the translation Data Grid.
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function grid($localeId)
+    {
+        $data = $this->translations->grid($localeId);
 
-		$columns = [
-			'*',
-		];
+        $columns = [
+            '*',
+        ];
 
-		$settings = [
-			'sort'      => 'created_at',
-			'direction' => 'desc',
-		];
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+        ];
 
-		$transformer = function($element) use ($localeId)
-		{
-			$element->edit_uri = route('admin.localization.locales.translations.edit', array($localeId, $element->id));
+        $transformer = function ($element) use ($localeId) {
+            $element->edit_uri = route('admin.localization.locales.translations.edit', array($localeId, $element->id));
 
-			return $element;
-		};
+            return $element;
+        };
 
-		return datagrid($data, $columns, $settings, $transformer);
-	}
+        return datagrid($data, $columns, $settings, $transformer);
+    }
 
-	/**
-	 * Show the form for creating new translation.
-	 *
-	 * @return \Illuminate\View\View
-	 */
-	public function create($localeId)
-	{
+    /**
+     * Show the form for creating new translation.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($localeId)
+    {
         $locale = $this->locales->find($localeId);
 
-        if( ! $locale) return redirect(route('admin.localization.locales.index'));
+        if (!$locale) return redirect(route('admin.localization.locales.index'));
 
-		return $this->showForm('create', $locale);
-	}
+        return $this->showForm('create', $locale);
+    }
 
-	/**
-	 * Handle posting of the form for creating new translation.
-	 *
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function store()
-	{
-		return $this->processForm('create');
-	}
+    /**
+     * Handle posting of the form for creating new translation.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store()
+    {
+        return $this->processForm('create');
+    }
 
-	/**
-	 * Show the form for updating translation.
-	 *
-	 * @param  int  $id
-	 * @return mixed
-	 */
-	public function edit($localeId, $id)
-	{
+    /**
+     * Show the form for updating translation.
+     *
+     * @param  int $id
+     * @return mixed
+     */
+    public function edit($localeId, $id)
+    {
         $locale = $this->locales->find($localeId);
 
-        if( ! $locale) return redirect(route('admin.localization.locales.index'));
+        if (!$locale) return redirect(route('admin.localization.locales.index'));
 
-		return $this->showForm('update', $locale, $id);
-	}
+        return $this->showForm('update', $locale, $id);
+    }
 
-	/**
-	 * Handle posting of the form for updating translation.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function update($id)
-	{
-		return $this->processForm('update', $id);
-	}
+    /**
+     * Handle posting of the form for updating translation.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id)
+    {
+        return $this->processForm('update', $id);
+    }
 
-	/**
-	 * Remove the specified translation.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function delete($id)
-	{
-		$type = $this->translations->delete($id) ? 'success' : 'error';
+    /**
+     * Remove the specified translation.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+        $type = $this->translations->delete($id) ? 'success' : 'error';
 
-		$this->alerts->{$type}(
-			trans("stevebauman/localization::translations/message.{$type}.delete")
-		);
+        $this->alerts->{$type}(
+            trans("stevebauman/localization::translations/message.{$type}.delete")
+        );
 
-		return redirect()->route('admin.stevebauman.localization.translations.all');
-	}
+        return redirect()->route('admin.stevebauman.localization.translations.all');
+    }
 
-	/**
-	 * Executes the mass action.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function executeAction()
-	{
-		$action = request()->input('action');
+    /**
+     * Executes the mass action.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function executeAction()
+    {
+        $action = request()->input('action');
 
-		if (in_array($action, $this->actions))
-		{
-			foreach (request()->input('rows', []) as $row)
-			{
-				$this->translations->{$action}($row);
-			}
+        if (in_array($action, $this->actions)) {
+            foreach (request()->input('rows', []) as $row) {
+                $this->translations->{$action}($row);
+            }
 
-			return response('Success');
-		}
+            return response('Success');
+        }
 
-		return response('Failed', 500);
-	}
+        return response('Failed', 500);
+    }
 
-	/**
-	 * Shows the form.
-	 *
-	 * @param  string  $mode
-	 * @param  int  $id
-	 * @return mixed
-	 */
-	protected function showForm($mode, $locale, $id = null)
-	{
-		// Do we have a translation identifier?
-		if (isset($id))
-		{
-			if ( ! $translation = $this->translations->find($id))
-			{
-				$this->alerts->error(trans('stevebauman/localization::translations/message.not_found', compact('id')));
+    /**
+     * Shows the form.
+     *
+     * @param  string $mode
+     * @param  int $id
+     * @return mixed
+     */
+    protected function showForm($mode, $locale, $id = null)
+    {
+        // Do we have a translation identifier?
+        if (isset($id)) {
+            if (!$translation = $this->translations->find($id)) {
+                $this->alerts->error(trans('stevebauman/localization::translations/message.not_found', compact('id')));
 
-				return redirect()->route('admin.stevebauman.localization.translations.all');
-			}
-		}
-		else
-		{
-			$translation = $this->translations->createModel();
-		}
+                return redirect()->route('admin.stevebauman.localization.translations.all');
+            }
+        } else {
+            $translation = $this->translations->createModel();
+        }
 
         $translations = $translation->getTranslations();
 
-		// Show the page
-		return view('stevebauman/localization::translations.form', compact('mode', 'translation', 'translations', 'locale'));
-	}
+        // Show the page
+        return view('stevebauman/localization::translations.form', compact('mode', 'translation', 'translations', 'locale'));
+    }
 
-	/**
-	 * Processes the form.
-	 *
-	 * @param  string  $mode
-	 * @param  int  $id
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	protected function processForm($mode, $id = null)
-	{
-		// Store the translation
-		list($messages) = $this->translations->store($id, request()->all());
+    /**
+     * Processes the form.
+     *
+     * @param  string $mode
+     * @param  int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function processForm($mode, $id = null)
+    {
+        // Store the translation
+        list($messages) = $this->translations->store($id, request()->all());
 
-		// Do we have any errors?
-		if ($messages->isEmpty())
-		{
-			$this->alerts->success(trans("stevebauman/localization::translations/message.success.{$mode}"));
+        // Do we have any errors?
+        if ($messages->isEmpty()) {
+            $this->alerts->success(trans("stevebauman/localization::translations/message.success.{$mode}"));
 
-			return redirect()->route('admin.stevebauman.localization.translations.all');
-		}
+            return redirect()->route('admin.stevebauman.localization.translations.all');
+        }
 
-		$this->alerts->error($messages, 'form');
+        $this->alerts->error($messages, 'form');
 
-		return redirect()->back()->withInput();
-	}
+        return redirect()->back()->withInput();
+    }
 
 }

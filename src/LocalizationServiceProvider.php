@@ -68,12 +68,10 @@ class LocalizationServiceProvider extends ServiceProvider
          * If the extension is installing, we'll publish the localization
          * migrations to our localization extension directory
          */
-        Extension::installing(function(Extension $extension)
-        {
+        Extension::installing(function (Extension $extension) {
             $extension->getSlug('stevebauman/localization');
 
-            if($extension->getNamespace() === 'Stevebauman\Localization')
-            {
+            if ($extension->getNamespace() === 'Stevebauman\Localization') {
                 Artisan::call('vendor:publish', array(
                     '--provider' => get_class($this),
                 ));

@@ -2,21 +2,22 @@
 
 use Cartalyst\Support\Validator;
 
-class TranslationValidator extends Validator implements TranslationValidatorInterface {
+class TranslationValidator extends Validator implements TranslationValidatorInterface
+{
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $rules = [
+    /**
+     * {@inheritDoc}
+     */
+    protected $rules = [
 
-	];
+    ];
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function onUpdate()
-	{
+    /**
+     * {@inheritDoc}
+     */
+    public function onUpdate()
+    {
 
-	}
+    }
 
 }

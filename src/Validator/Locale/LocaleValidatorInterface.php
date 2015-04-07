@@ -1,12 +1,13 @@
 <?php namespace Stevebauman\Localization\Validator\Locale;
 
-interface LocaleValidatorInterface {
+interface LocaleValidatorInterface
+{
 
-	/**
-	 * Updating a locale scenario.
-	 *
-	 * @return void
-	 */
-	public function onUpdate();
+    /**
+     * Updating a locale scenario.
+     *
+     * @return void
+     */
+    public function onUpdate();
 
 }

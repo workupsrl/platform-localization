@@ -7,21 +7,21 @@ use Cartalyst\Support\Validator;
 class LocaleValidator extends Validator implements LocaleValidatorInterface
 {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $rules = [
+    /**
+     * {@inheritDoc}
+     */
+    protected $rules = [
         'code' => 'required|max:2',
         'name' => 'required',
         'display_name' => '',
-	];
+    ];
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function onUpdate()
-	{
+    /**
+     * {@inheritDoc}
+     */
+    public function onUpdate()
+    {
 
-	}
+    }
 
 }

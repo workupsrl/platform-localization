@@ -1,12 +1,13 @@
 <?php namespace Stevebauman\Localization\Validator\Translation;
 
-interface TranslationValidatorInterface {
+interface TranslationValidatorInterface
+{
 
-	/**
-	 * Updating a translation scenario.
-	 *
-	 * @return void
-	 */
-	public function onUpdate();
+    /**
+     * Updating a translation scenario.
+     *
+     * @return void
+     */
+    public function onUpdate();
 
 }

@@ -1,13 +1,14 @@
 <?php namespace Stevebauman\Localization\Handlers\Translation;
 
-interface TranslationDataHandlerInterface {
+interface TranslationDataHandlerInterface
+{
 
-	/**
-	 * Prepares the given data for being stored.
-	 *
-	 * @param  array  $data
-	 * @return mixed
-	 */
-	public function prepare(array $data);
+    /**
+     * Prepares the given data for being stored.
+     *
+     * @param  array $data
+     * @return mixed
+     */
+    public function prepare(array $data);
 
 }

@@ -2,14 +2,14 @@
 
 return [
 
-	'general' => [
+    'general' => [
 
         'legend' => 'Details',
 
-		'id' => 'Id',
+        'id' => 'Id',
         'translation' => 'Translation',
-		'created_at' => 'Created At',
+        'created_at' => 'Created At',
 
-	],
+    ],
 
 ];
