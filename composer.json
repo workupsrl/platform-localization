@@ -1,0 +1,35 @@
+{
+	"name": "stevebauman/localization",
+	"type": "platform-extension",
+	"description": "A localization manager for platform",
+	"authors": [
+		{
+			"name": "Steve Bauman",
+			"email": "steven_bauman@outlook.com"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.cartalyst.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"cartalyst/composer-installers": "1.2.*",
+		"illuminate/support": "4.* | 5.*",
+		"platform/foundation": "1.0.*",
+        "stevebauman/translation": "1.1.*"
+	},
+	"autoload": {
+		"classmap": [
+			"database/migrations",
+			"database/seeds"
+		],
+		"psr-4": {
+			"Stevebauman\\Localization\\": "src/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
