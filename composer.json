@@ -19,7 +19,7 @@
     "cartalyst/composer-installers": "1.2.*",
     "illuminate/support": "4.* | 5.*",
     "platform/foundation": "~3.0",
-    "stevebauman/translation": "1.1.*"
+    "stevebauman/translation": "^1.3"
   },
   "autoload": {
     "classmap": [
